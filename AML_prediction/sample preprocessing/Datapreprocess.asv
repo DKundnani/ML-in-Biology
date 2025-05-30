@@ -1,0 +1,26 @@
+% Machine Learning class by Peng Qiu
+% Early project for classification of AML
+% 359 subjects(316 normal and 43 AML) with sampling in 8 tubes for different surface markers like CD19, IgG etc
+%one file for each tube, total 2872 files
+% Lables provided for 179 subjects, predict for hte remaining 180
+% http://pengqiu.gatech.edu/MLB/CSV.zip 
+
+
+%  Read csv file
+data = csvread('0001.CSV',1,0);
+%For loop for all 7 columns
+
+for n = 1:7
+    n = 3
+    %normalization of data, subtracting mean to set mean at 0
+    data(:,n) = data(:,n)-mean(data(:,n));
+    %dividing by std to set std at 1, multiplying by 0.1 to set std at 0.1
+    data(:,n) = data(:,n)/std(data(:,n))*0.1;
+end
+    
+%plotting with dimensions 2 and 2, in four corners of the figure(clockwise)
+subplot(2,2,1); hist(data(:,n))
+subplot(2,2,2); hist(data(:,n),50)
+subplot(2,2,3); ksdensity(data(:,n))
+subplot(2,2,4); FlowJo_contour2D(data(:,n),data(:,1),10)
+
